@@ -1,0 +1,36 @@
+{
+  "name": "buildandreleasetask",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "mocha",
+    "build": "tsc --pretty",
+    "run": "tsc && node index.js"
+  },
+  "keywords": [
+    "azure",
+    "devops",
+    "extension",
+    "task",
+    "pull",
+    "request",
+    "scorerizer"
+  ],
+  "author": "josh vito",
+  "license": "ISC",
+  "description": "A task that will analyze PRs and give them a score.",
+  "devDependencies": {
+    "@types/mocha": "^10.0.9",
+    "@types/node": "^22.7.6",
+    "@types/q": "^1.5.8",
+    "mocha": "^10.7.3",
+    "sync-request": "^6.1.0",
+    "tfx-cli": "^0.17.0",
+    "typescript": "^5.6.3"
+  },
+  "dependencies": {
+    "azure-devops-extension-sdk": "^4.0.2",
+    "azure-pipelines-task-lib": "^4.17.3"
+  }
+}
