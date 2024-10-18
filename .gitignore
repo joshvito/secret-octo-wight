@@ -1,3 +1,2 @@
-buildandreleasetask/index.js
-buildandreleasetask/tests/*.js
 **/*.log
+**/*.js
