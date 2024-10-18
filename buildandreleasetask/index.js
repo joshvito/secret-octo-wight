@@ -1,6 +1,7 @@
 import { createRequire as _createRequire } from "module";
 const __require = _createRequire(import.meta.url);
 const tl = __require("azure-pipelines-task-lib/task");
+import 'dotenv/config';
 async function run() {
     try {
         const inputString = tl.getInput('samplestring', true);
