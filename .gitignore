@@ -1,1 +1,3 @@
-buildandreleasetask/index.ts
+buildandreleasetask/index.js
+buildandreleasetask/tests/*.js
+**/*.log
