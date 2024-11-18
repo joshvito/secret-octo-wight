@@ -3,6 +3,8 @@ secret-octo-wight
 
 Started to implement a task from the guide at https://learn.microsoft.com/en-us/azure/devops/extend/develop/add-build-task
 
+Azure Pipeline variables https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
+
 Ideas for what this task will eventually be able to do:
 
 Goal is to => create a PR quality measurement tool/score

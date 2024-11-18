@@ -1,5 +1,6 @@
-import tl = require('azure-pipelines-task-lib/task');
 import 'dotenv/config';
+import tl = require('azure-pipelines-task-lib/task');
+
  async function run() {
      try {
          const inputString: string | undefined = tl.getInput('samplestring', true);
