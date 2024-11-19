@@ -1,33 +1,28 @@
 import 'dotenv/config';
 import tl = require('azure-pipelines-task-lib/task');
-import { Buffer } from 'node:buffer';
+import * as azdev from 'azure-devops-node-api';
 
  async function run() {
-    const encode = (str: string):string => Buffer.from(':'+ str).toString('base64');
+    const orgUrl = `https://dev.azure.com/${process.env.debug_organization}`;
+    const token: string = process.env.pat_devops || '';
+    const authHandler = azdev.getPersonalAccessTokenHandler(token); 
+    const connection = new azdev.WebApi(orgUrl, authHandler);    
+    const gitApi = await connection.getGitApi();
 
-    const url = `https://dev.azure.com/${process.env.debug_organization}/${process.env.debug_project}/_apis/git/pullrequests/${process.env.debug_pullRequestId}?api-version=7.1`;
+    let pr = await gitApi.getPullRequestById(Number(process.env.debug_pullRequestId), process.env.debug_project)
 
-    const tryandsee = await fetch(url, {
-        method: 'GET',
-        headers: {
-            'Authorization': `Basic ${encode(process.env.pat_devops || '')}`
+    // hello world below
+    try {
+        const inputString: string | undefined = tl.getInput('samplestring', true);
+        if (inputString == 'bad') {
+            tl.setResult(tl.TaskResult.Failed, 'Bad input was given');
+            return;
         }
-    });
-     
-    const response = await tryandsee.json();
-
-
-     try {
-         const inputString: string | undefined = tl.getInput('samplestring', true);
-         if (inputString == 'bad') {
-             tl.setResult(tl.TaskResult.Failed, 'Bad input was given');
-             return;
-         }
-         console.log('Hello', inputString);
-     }
-     catch (err:any) {
-         tl.setResult(tl.TaskResult.Failed, err.message);
-     }
+        console.log('Hello', inputString);
+    }
+    catch (err:any) {
+        tl.setResult(tl.TaskResult.Failed, err.message);
+    }
  }
 
  run();
