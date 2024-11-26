@@ -1,10 +1,9 @@
-secret-octo-wight
+code name: secret-octo-wight
 =================
-
 Started to implement a task from the guide at https://learn.microsoft.com/en-us/azure/devops/extend/develop/add-build-task
-
 Azure Pipeline variables https://learn.microsoft.com/en-us/azure/devops/pipelines/build/variables?view=azure-devops&tabs=yaml
 Devops API is docs are at https://learn.microsoft.com/en-us/rest/api/azure/devops/git/pull-requests/get-pull-request-by-id?view=azure-devops-rest-7.1&tabs=HTTP
+Extension: Add PR tabs example https://github.com/microsoft/azure-devops-extension-sample/tree/master/src/Samples/pr-tabs
 
 Ideas for what this task will eventually be able to do:
 

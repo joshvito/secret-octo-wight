@@ -7,7 +7,7 @@
     "test": "tsc && mocha tests/_suite.js",
     "build": "tsc --pretty",
     "run": "tsc && node index.js",
-    "cleanup:js": "rm -rf **/*.js *.js"
+    "cleanup:js": "rm -rf tests/*.js *.js"
   },
   "keywords": [
     "azure",
