@@ -38,9 +38,10 @@ async function run() {
             }
             return accum;
         }, _init);
-
+    const _grade = _results.commitAuthors.length >= _authorThreshold ? `A` : `F`; // ToDo: how to calculate the grade?
+    const _pointStr = _results.commitAuthors.length >= _authorThreshold ? `+1 :sparkles:` : `0`;
     const _comment: Comment  = {
-        content: `This pull request has commits from multiple authors: ${_results.commitAuthors.join(', ')}`,
+        content: `**PR Grade**: ${_grade}\r\n|Coder|Points|\r\n|-|-|\r\n|${_results.commitAuthors.join('| '+_pointStr +'|\r\n')}|${_pointStr}|`,
         commentType: CommentType.System
     };
     const _thread: GitPullRequestCommentThread = {
@@ -48,14 +49,12 @@ async function run() {
         identities: {}, // ToDo: add the robot identity or similar
         status: CommentThreadStatus.Active
     };
-    // debugger;
     
-    if (_results.commitAuthors.length >= _authorThreshold) {
+    if (_results.commitAuthors.length >= 2) {
         await gitApi.createPullRequestLabel({name: 'MultipleCommitAuthors'}, _repositoryId, _pullRequestId, undefined, _teamProjectId);
-        await gitApi.createThread(_thread, _repositoryId, _pullRequestId, _teamProjectId);
-        tl.setResult(tl.TaskResult.Succeeded, 'Multiple commit authors detected', true);
-        return;
     }
+    await gitApi.createThread(_thread, _repositoryId, _pullRequestId, _teamProjectId);
+    tl.setResult(tl.TaskResult.Succeeded, 'Multiple commit authors detected', true);
 }
 
  run();
