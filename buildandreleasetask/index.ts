@@ -1,60 +1,24 @@
 import 'dotenv/config';
 import tl = require('azure-pipelines-task-lib/task');
-import * as azdev from 'azure-devops-node-api';
-import { Comment, CommentThreadStatus, CommentType, GitPullRequestCommentThread } from 'azure-devops-node-api/interfaces/GitInterfaces.js';
-
-interface IResult {
-    commitAuthors: string[];
-    points: number;
-}
-
-let _init: IResult = {
-    commitAuthors: [],
-    points: 0
-};
+import * as PR from './communication/pull-request.js';
+import { gradePullRequest } from './services/score.service.js';
 
 async function run() {
-    const orgUrl = tl.getVariable('System.TeamFoundationCollectionUri')!;
 
-    // ToDo: see if we can use the tl.getVariable('SYSTEM.ACCESSTOKEN') in place of PAT
-    const token: string = tl.getInput("PAT")!;
-    const authHandler = azdev.getPersonalAccessTokenHandler(token); 
-    const connection = new azdev.WebApi(orgUrl, authHandler);    
-    const gitApi = await connection.getGitApi();
-    const _teamProjectId: string = tl.getVariable('System.TeamProjectId')!;
-    const _pullRequestId: number = Number(tl.getVariable('System.PullRequest.PullRequestId')!);
-    const _repositoryId: string = tl.getVariable('Build.Repository.ID')!;
-    const _authorThreshold: number = Number(tl.getInput('MultipleCommitAuthorsThreshold')!) || 2;
-
-    const pullreq = await gitApi.getPullRequestById(_pullRequestId, _teamProjectId);
-    const commits = await gitApi.getPullRequestCommits(pullreq.repository?.id!, _pullRequestId, _teamProjectId);
-
-    let _results: IResult = commits
-        .map((commitRef) => commitRef.author?.name)
-        .filter((author) => author !== undefined)
-        .reduce((accum, author) => {
-            if (!accum.commitAuthors.includes(author!)) {
-                accum.commitAuthors.push(author!);
-            }
-            return accum;
-        }, _init);
-    const _grade = _results.commitAuthors.length >= _authorThreshold ? `A` : `F`; // ToDo: how to calculate the grade?
-    const _pointStr = _results.commitAuthors.length >= _authorThreshold ? `+1 :sparkles:` : `0`;
-    const _comment: Comment  = {
-        content: `**PR Grade**: ${_grade}\r\n|Coder|Points|\r\n|-|-|\r\n|${_results.commitAuthors.join('| '+_pointStr +'|\r\n')}|${_pointStr}|`,
-        commentType: CommentType.System
-    };
-    const _thread: GitPullRequestCommentThread = {
-        comments: [_comment],
-        identities: {}, // ToDo: add the robot identity or similar
-        status: CommentThreadStatus.Active
-    };
-    
-    if (_results.commitAuthors.length >= 2) {
-        await gitApi.createPullRequestLabel({name: 'MultipleCommitAuthors'}, _repositoryId, _pullRequestId, undefined, _teamProjectId);
+    const _devopsMetadata: PR.IDevopsMetadata = {
+        teamProjectId: tl.getVariable('System.TeamProjectId')!,
+        pullRequestId: Number(tl.getVariable('System.PullRequest.PullRequestId')!),
+        repositoryId: tl.getVariable('Build.Repository.ID')!,
+        organizationUrl: tl.getVariable('System.TeamFoundationCollectionUri')!,
+        token: tl.getInput("PAT")!,  // ToDo: see if we can use the tl.getVariable('SYSTEM.ACCESSTOKEN') in place of PAT
+        authorThreshold: Number(tl.getInput('MultipleCommitAuthorsThreshold')!),
     }
-    await gitApi.createThread(_thread, _repositoryId, _pullRequestId, _teamProjectId);
-    tl.setResult(tl.TaskResult.Succeeded, 'Multiple commit authors detected', true);
-}
+    await PR.initGitApi(_devopsMetadata);
 
+    const _commits = await PR.getAuthors(_devopsMetadata);
+    const _results = await gradePullRequest(_commits, _devopsMetadata.authorThreshold);
+
+    await PR.addResults(_results, _devopsMetadata);
+    tl.setResult(tl.TaskResult.Succeeded, undefined, true);
+}
  run();
