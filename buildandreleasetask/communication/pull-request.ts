@@ -38,13 +38,7 @@ export async function addResults(score: IScoreResult, meta: IDevopsMetadata): Pr
 
 async function createPullRequestLabel(name: string, meta: IDevopsMetadata): Promise<WebApiTagDefinition> {
     const labelRequest: WebApiCreateTagRequestData = {name};
-    let result: Promise<WebApiTagDefinition>;
-    try {
-        await gitApi.createPullRequestLabel(labelRequest, meta.repositoryId, meta.pullRequestId, undefined, meta.teamProjectId);
-    } catch (error) {
-        debugger;
-    }
-    return undefined as any;
+    return  await gitApi.createPullRequestLabel(labelRequest, meta.repositoryId, meta.pullRequestId, undefined, meta.teamProjectId);
 }
 
 async function createThread(score: IScoreResult, meta: IDevopsMetadata): Promise<GitPullRequestCommentThread> {
