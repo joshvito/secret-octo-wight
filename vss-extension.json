@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
-    "id": "build-release-task",
-    "name": "Build and Release Tools",
+    "id": "PrGraderizer",
+    "name": "Pull Request Graderizer",
     "version": "0.0.1",
     "publisher": "JoshVito",
     "targets": [
@@ -9,18 +9,37 @@
             "id": "Microsoft.VisualStudio.Services"
         }
     ],    
-    "description": "Tools for building/releasing with Fabrikam. Includes one build/release task.",
+    "description": "This extension will grade your pull requests",
     "categories": [
         "Azure Pipelines"
+    ],
+    "tags": [
+        "pullrequest",
+        "grader",
+        "code quality",
+        "peer review",
+        "code review"
     ],
     "icons": {
         "default": "images/extension-icon.png"        
     },
     "files": [
         {
-            "path": "buildandreleasetask"
+            "path": "graderizer"
+        },
+        {
+            "path": "README.md",
+            "addressable": true
+        },
+        {
+            "path": "assets/extension-icon.png",
+            "addressable": true
         }
     ],
+    "repository": {
+        "type": "git",
+        "uri": "https://github.com/joshvito/secret-octo-wight"
+    },
     "contributions": [
         {
             "id": "custom-build-release-task",
@@ -29,7 +48,7 @@
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "buildandreleasetask"
+                "name": "graderizer"
             }
         }
     ]

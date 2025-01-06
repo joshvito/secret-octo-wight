@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import tl = require('azure-pipelines-task-lib/task');
+import tl = require('azure-pipelines-task-lib');
 import * as PR from './communication/pull-request.js';
 import { gradePullRequest } from './services/score.service.js';
 
