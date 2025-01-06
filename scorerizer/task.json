@@ -12,15 +12,23 @@
         "Minor": 1,
         "Patch": 0
     },
-    "instanceNameFormat": "Echo $(samplestring)",
+    "instanceNameFormat": "Scorerizeationing the PR",
     "inputs": [
         {
-            "name": "samplestring",
-            "type": "string",
-            "label": "Sample String",
-            "defaultValue": "",
-            "required": true,
-            "helpMarkDown": "A sample string"
+            "name": "EncouragePairProgramming",
+            "type": "boolean",
+            "label": "Minimum Number of Authors",
+            "defaultValue": "true",
+            "required": false,
+            "helpMarkDown": "Whether or not to encourage pair programming by requiring multiple authors on a PR; On by default."
+        },
+        {
+            "name": "MultipleCommitAuthorsThreshold",
+            "type": "int",
+            "label": "Minimum Number of Authors",
+            "defaultValue": "2",
+            "required": false,
+            "helpMarkDown": "The minimum number of commit authors on a PR for it to be considered a multi-author PR; Only used when EncouragePairProgramming is true. Defaults to 2, but available if you want to require more than 2 authors."
         }
     ],
     "execution": {

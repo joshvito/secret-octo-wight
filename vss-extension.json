@@ -2,7 +2,7 @@
     "manifestVersion": 1,
     "id": "PrScorerizer",
     "name": "Pull Request Scorerizer",
-    "version": "0.0.1",
+    "version": "0.1.0",
     "publisher": "JoshVito",
     "targets": [
         {

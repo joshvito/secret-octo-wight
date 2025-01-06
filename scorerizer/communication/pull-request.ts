@@ -12,6 +12,7 @@ export interface IDevopsMetadata {
     organizationUrl: string;
     token: string;
     authorThreshold: number;
+    pairProgrammingEnabled: boolean;
 }
 
 let gitApi: IGitApi;

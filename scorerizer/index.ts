@@ -12,13 +12,15 @@ async function run() {
         organizationUrl: tl.getVariable('System.TeamFoundationCollectionUri')!,
         token: tl.getInput("PAT")!,  // ToDo: see if we can use the tl.getVariable('SYSTEM.ACCESSTOKEN') in place of PAT
         authorThreshold: Number(tl.getInput('MultipleCommitAuthorsThreshold')!),
+        pairProgrammingEnabled: tl.getBoolInput('EncouragePairProgramming')!,
     }
     await PR.initGitApi(_devopsMetadata);
 
     const _commits = await PR.getAuthors(_devopsMetadata);
-    const _results = await gradePullRequest(_commits, _devopsMetadata.authorThreshold);
 
+    const _results = await gradePullRequest(_commits, _devopsMetadata.authorThreshold);
     await PR.addResults(_results, _devopsMetadata);
+
     tl.setResult(tl.TaskResult.Succeeded, undefined, true);
 }
  run();
