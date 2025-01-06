@@ -21,7 +21,7 @@
         "code review"
     ],
     "icons": {
-        "default": "images/extension-icon.png"        
+        "default": "assets/extension-icon.png"        
     },
     "files": [
         {
