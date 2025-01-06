@@ -10,10 +10,13 @@ The pipeline needs to explicitly map `System.AccessToken` into the pipeline usin
 If you want to contribute, and need to run locally, there is a fallback option to use a `PAT` from your environment variables in place of the `tl.getVariable('SYSTEM.ACCESSTOKEN')`.
 
 Just put a `.env` file at the root of `./scorerizer` directory with the inputs you need to run. 
-DO NOT commit the .env file to source control. The system variable get read at runtime from the pipeline, so you will need to supply them when running locally. Given the following devops url: https://dev.azure.com/mycompany/myproject
+DO NOT commit the .env file to source control. The system variable get read at runtime from the pipeline, so you will need to supply them when running locally. 
+
+Given the following devops url: https://dev.azure.com/mycompany/myproject
 
 e.g.
 ```
+// .env
 INPUT_PAT="YOUR_GENERATED_PAT_FOR_DEVOPS"
 System_PullRequest_PullRequestId=1234567890
 System_TeamProjectId="myproject"
