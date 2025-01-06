@@ -1,7 +1,7 @@
 {
     "manifestVersion": 1,
-    "id": "PrGraderizer",
-    "name": "Pull Request Graderizer",
+    "id": "PrScorerizer",
+    "name": "Pull Request Scorerizer",
     "version": "0.0.1",
     "publisher": "JoshVito",
     "targets": [
@@ -25,7 +25,7 @@
     },
     "files": [
         {
-            "path": "graderizer"
+            "path": "scorerizer"
         },
         {
             "path": "README.md",
@@ -48,7 +48,7 @@
                 "ms.vss-distributed-task.tasks"
             ],
             "properties": {
-                "name": "graderizer"
+                "name": "scorerizer"
             }
         }
     ]
