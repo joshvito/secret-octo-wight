@@ -10,7 +10,7 @@ async function run() {
         pullRequestId: Number(tl.getVariable('System.PullRequest.PullRequestId')!),
         repositoryId: tl.getVariable('Build.Repository.ID')!,
         organizationUrl: tl.getVariable('System.TeamFoundationCollectionUri')!,
-        token: tl.getInput("PAT")!,  // ToDo: see if we can use the tl.getVariable('SYSTEM.ACCESSTOKEN') in place of PAT
+        token: tl.getVariable('SYSTEM.ACCESSTOKEN') || tl.getInput("PAT")!,
         authorThreshold: Number(tl.getInput('MultipleCommitAuthorsThreshold')!),
         pairProgrammingEnabled: tl.getBoolInput('EncouragePairProgramming')!,
     }
