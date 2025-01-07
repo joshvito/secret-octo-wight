@@ -7,7 +7,7 @@ The pipeline needs to explicitly map `System.AccessToken` into the pipeline usin
 
 
 ## Contributing
-If you want to contribute, and need to run locally, there is a fallback option to use a `PAT` from your environment variables in place of the `tl.getVariable('SYSTEM.ACCESSTOKEN')`.
+If you want to contribute, and need to run locally, there is a fallback option to use a `PAT` from your environment variables in place of the `SYSTEM.ACCESSTOKEN`. 
 
 Just put a `.env` file at the root of `./scorerizer` directory with the inputs you need to run. 
 DO NOT commit the .env file to source control. The system variable get read at runtime from the pipeline, so you will need to supply them when running locally. 
@@ -23,7 +23,7 @@ System_TeamProjectId="myproject"
 System_TeamFoundationCollectionUri="https://dev.azure.com/mycompany/"
 Build_Repository_ID="00000000-0000-0000-0000-000000000000"
 ```
-
+Also, if your env contains the `NODE_ENV` variable, and it is set to "development", the unit tests will check that the above env values are set.
 
 ### Ideas/Future Considerations
 
