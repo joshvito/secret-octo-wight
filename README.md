@@ -35,6 +35,7 @@ Post to a dashboard, post on each PR? Maybe codebase score is different than PR 
 - attached to a devops card could award points (audit readyness)
 - could even scan for snyk and award reductions of findings or subtract for adding findings
 - how could we check for unit test assertion quality 
+- how could we check for A11Y quality, automated scan?
 - this could be in charge of finding and running unit tests; looking for increase in coverage, or just existence of new tests
 - maybe points can also be awarded for non-author actions like constructive comments/conversations
 - would be cool to start with points, and then somehow store scores, and give grades on a curve, or show "above average/below  average" flags
